@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Payroll</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body style="background:#f4f6f9;">
+
+<div class="container mt-5">
+
+    <!-- Header -->
+    <div class="d-flex align-items-center mb-4">
+        <div class="logo-circle me-3">
+            <i class="bi bi-person-fill"></i>
+        </div>
+        <h3 class="fw-bold text-secondary">EMPLOYEE PAYROLL</h3>
+    </div>
+
+    <div class="card shadow-lg p-4 rounded-4">
+
+        <!-- Title + Button -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-semibold">Employee Details</h4>
+            <a href="/add" class="btn btn-success px-4">
+                <i class="bi bi-plus-lg"></i> Add Employee
+            </a>
+        </div>
+
+        <% 
+        let totalEmployees = employees.length;
+        let totalSalary = 0;
+        let totalTax = 0;
+
+        employees.forEach(emp => {
+            totalSalary += emp.salary;
+            totalTax += emp.salary * 0.12;
+        });
+
+        let totalNet = totalSalary - totalTax;
+        %>
+
+        <!-- Summary Cards (5 Cards Same As Image) -->
+        <div class="row g-4 mb-4 text-center">
+
+            <!-- Total Employees -->
+            <div class="col-md-2">
+                <div class="card summary-card p-3">
+                    <i class="bi bi-people fs-2 text-secondary"></i>
+                    <h6 class="mt-2 text-muted">TOTAL EMPLOYEES</h6>
+                    <h4><%= totalEmployees %></h4>
+                </div>
+            </div>
+
+            <!-- Total Basic Salary -->
+            <div class="col-md-2">
+                <div class="card summary-card p-3">
+                    <i class="bi bi-bank fs-2 text-secondary"></i>
+                    <h6 class="mt-2 text-muted">TOTAL BASIC SALARY</h6>
+                    <h4>₹<%= totalSalary.toFixed(2) %></h4>
+                </div>
+            </div>
+
+            <!-- Total Tax -->
+            <div class="col-md-2">
+                <div class="card summary-card p-3">
+                    <i class="bi bi-cash-stack fs-2 text-warning"></i>
+                    <h6 class="mt-2 text-muted">TOTAL TAX (12%)</h6>
+                    <h4>₹<%= totalTax.toFixed(2) %></h4>
+                </div>
+            </div>
+
+            <!-- TOTAL NET (12%) -->
+            <div class="col-md-3">
+                <div class="card summary-card p-3">
+                    <i class="bi bi-receipt fs-2 text-secondary"></i>
+                    <h6 class="mt-2 text-muted">TOTAL NET (12%)</h6>
+                    <h4>₹<%= totalNet.toFixed(2) %></h4>
+                </div>
+            </div>
+
+            <!-- Total Net Salary -->
+            <div class="col-md-3">
+                <div class="card summary-card p-3">
+                    <i class="bi bi-wallet2 fs-2 text-secondary"></i>
+                    <h6 class="mt-2 text-muted">TOTAL NET SALARY</h6>
+                    <h4>₹<%= totalNet.toFixed(2) %></h4>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Employee Table -->
+        <div class="card rounded-4">
+            <div class="card-body p-0">
+
+                <table class="table mb-0 text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Basic Salary</th>
+                            <th>Tax (12%)</th>
+                            <th>Net Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% employees.forEach(emp => { 
+                            const tax = emp.salary * 0.12;
+                            const net = emp.salary - tax;
+                        %>
+                        <tr>
+                            <td class="text-start ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar me-2">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <%= emp.name %>
+                                </div>
+                            </td>
+                            <td><%= emp.department %></td>
+                            <td>₹<%= emp.salary.toFixed(2) %></td>
+                            <td>₹<%= tax.toFixed(2) %></td>
+                            <td>₹<%= net.toFixed(2) %></td>
+                            <td>
+                                <a href="/edit/<%= emp.id %>" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a href="/delete/<%= emp.id %>" 
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Are you sure?')">
+                                   Delete
+                                </a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
