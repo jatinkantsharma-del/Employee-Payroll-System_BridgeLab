@@ -1,21 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Employee</title>
+    <title>Add Employee - Employee Payroll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="form-body">
 
-<h2>Add Employee</h2>
+<div class="form-wrapper">
 
-<form action="/add" method="POST">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="text" name="department" placeholder="Department" required>
-    <input type="number" name="salary" placeholder="Salary" required>
-    <button type="submit">Add</button>
-</form>
+    <div class="form-card">
 
-<a href="/">Back</a>
+        <h3 class="text-center mb-4">Employee Payroll Form</h3>
+
+        <form action="/add" method="POST">
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter employee name" required>
+            </div>
+
+            <!-- Profile Images -->
+            <div class="mb-3">
+                <label class="form-label">Profile Image</label>
+                <div class="d-flex gap-3">
+                    <span class="profile-icon bg-primary">👤</span>
+                    <span class="profile-icon bg-success">👤</span>
+                    <span class="profile-icon bg-danger">👤</span>
+                    <span class="profile-icon bg-warning">👤</span>
+                    <span class="profile-icon bg-secondary">👤</span>
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div>
+                    <input type="radio" name="gender" value="Male"> Male
+                    <input type="radio" name="gender" value="Female" class="ms-3"> Female
+                </div>
+            </div>
+
+            <!-- Department -->
+            <div class="mb-3">
+                <label class="form-label">Department</label>
+                <div>
+                    <input type="checkbox" name="department" value="HR"> HR
+                    <input type="checkbox" name="department" value="Sales" class="ms-3"> Sale
+                    <input type="checkbox" name="department" value="Finance" class="ms-3"> Finance
+                    <input type="checkbox" name="department" value="Engineer" class="ms-3"> Engineer
+                    <input type="checkbox" name="department" value="Others" class="ms-3"> Others
+                </div>
+            </div>
+
+            <!-- Salary -->
+            <div class="mb-3">
+                <label class="form-label">Salary</label>
+                <input type="number" name="salary" class="form-control" placeholder="Enter salary amount" required>
+            </div>
+
+            <!-- Start Date -->
+            <div class="mb-3">
+                <label class="form-label">Start Date</label>
+                <div class="d-flex gap-3">
+                    <select class="form-select">
+                        <option>Day</option>
+                        <% for(let i=1;i<=31;i++){ %>
+                            <option><%= i %></option>
+                        <% } %>
+                    </select>
+
+                    <select class="form-select">
+                        <option>Month</option>
+                        <option>Jan</option>
+                        <option>Feb</option>
+                        <option>Mar</option>
+                        <option>Apr</option>
+                        <option>May</option>
+                        <option>Jun</option>
+                        <option>Jul</option>
+                        <option>Aug</option>
+                        <option>Sep</option>
+                        <option>Oct</option>
+                        <option>Nov</option>
+                        <option>Dec</option>
+                    </select>
+
+                    <select class="form-select">
+                        <option>Year</option>
+                        <% for(let y=2000;y<=2035;y++){ %>
+                            <option><%= y %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="mb-4">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" rows="3" placeholder="Enter any additional notes"></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-end">
+                <button type="submit" class="btn btn-success me-2">Save</button>
+                <a href="/" class="btn btn-primary me-2">Cancel</a>
+                <button type="reset" class="btn btn-dark">Reset</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 </body>
 </html>
